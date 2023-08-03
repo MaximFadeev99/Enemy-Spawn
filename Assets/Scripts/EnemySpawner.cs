@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
 
@@ -14,17 +14,17 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemies(true));
+        StartCoroutine(SpawnEnemies());
     }
 
-    private IEnumerator SpawnEnemies(bool isActive) 
+    private IEnumerator SpawnEnemies() 
     {
         var waitTime = new WaitForSecondsRealtime(2f);
         SpawnPoint spawnPoint;
         Vector3 destination;
         Enemy spawnedEnemy;
 
-        while (isActive) 
+        while (true) 
         {
             spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length-1)];
             destination = GenerateDestination();
