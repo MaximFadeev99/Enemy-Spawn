@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
         {
             spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length-1)];
             destination = GenerateDestination();
-            spawnedEnemy = spawnPoint.SpawnObject(_enemy);
+            spawnedEnemy = SpawnObject(_enemy, spawnPoint);
             StartCoroutine(spawnedEnemy.MoveToTarget(destination));
             yield return waitTime;
         }
@@ -44,5 +44,10 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPosition = new Vector3(x, y, z);
 
         return Camera.main.ViewportToWorldPoint(spawnPosition);
+    }
+
+    private Enemy SpawnObject(Enemy spawnedObject, SpawnPoint spawnPoint)
+    {
+        return Instantiate(spawnedObject, spawnPoint.transform.position, spawnedObject.transform.rotation);
     }
 }
